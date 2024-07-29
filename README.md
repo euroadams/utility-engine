@@ -13,11 +13,11 @@ An instance of the utility engine can be instantiated using the standard PHP syn
 
 ```php
 
-    <?php
+<?php
 
-        $ENGINE = new Engine();
-    
-    ?>
+    $ENGINE = new Engine();
+
+?>
 
 ```
 
