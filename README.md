@@ -136,7 +136,7 @@ $ENGINE->cloak("utility.engine.test@gmail.com", 40, 2);
 ```
 
 
-###  2. Number Formating :
+###  2. Number Formatting :
 This feature helps you to format numbers into comma separated thousands and deecimal places. It also allows the use of `K`, `M`, `B`,  and `T` to format the number into thousands, millions, billions, and trillions respectively
 
 ```php
@@ -162,7 +162,7 @@ $ENGINE->format_number($num, $dcp=0, $kfmt=true);
 
 ```
 
-:point_right: **Formating into Comma Separated Thousands** :
+:point_right: **Comma Separated Format** :
 ```php
 
 <?php
@@ -171,9 +171,9 @@ $ENGINE->format_number(295000000, 0, false);
 
 /****
  * 
- * INPUT NUMBER : 295000000
+ * OUTPUT:
  * 
- * OUTPUT NUMBER : 295,000,000 
+ * 295000000 => 295,000,000
  * 
 ****/        
 
@@ -181,7 +181,7 @@ $ENGINE->format_number(295000000, 0, false);
 
 ```
 
-:point_right: **Formating into Comma Separated Thousands With Decimal Places** :
+:point_right: **Comma Separated Format With Decimal Places** :
 ```php
 
 <?php
@@ -190,9 +190,10 @@ $ENGINE->format_number(295000000, 4, false);
 
 /****
  * 
- * INPUT NUMBER : 295000000
+ * OUTPUT:
  * 
- * OUTPUT NUMBER : 295,000,000.0000 
+ * 295000000 => 295,000,000.0000 
+  
  * 
 ****/        
 
@@ -200,18 +201,24 @@ $ENGINE->format_number(295000000, 4, false);
 
 ```
 
-:point_right: **Formating Using K, M, B, T** :
+:point_right: **K, M, B, T Format** :
 ```php
 
 <?php
     
+$ENGINE->format_number(2500);
 $ENGINE->format_number(295000000);
+$ENGINE->format_number(295000000000);
+$ENGINE->format_number(295000000000000);
 
 /****
  * 
- * INPUT NUMBER : 295000000
+ * OUTPUT:
  * 
- * OUTPUT NUMBER : 295M 
+ * 2500 => 2.5K
+ * 295000000 => 295M
+ * 295000000000 => 295B
+ * 295000000000000 => 295T
  * 
 ****/        
 
