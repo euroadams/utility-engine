@@ -137,7 +137,7 @@ $ENGINE->cloak("utility.engine.test@gmail.com", 40, 2);
 
 
 ###  2. Number Formating :
-This feature helps you to format numbers into comma separated thousands and deecimal places. It also allows the use of `K`, `M`, `B`,  and `T` to format the number into thousands, millions, billions, and trillions 
+This feature helps you to format numbers into comma separated thousands and deecimal places. It also allows the use of `K`, `M`, `B`,  and `T` to format the number into thousands, millions, billions, and trillions respectively
 
 ```php
 
