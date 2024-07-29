@@ -61,9 +61,9 @@ $ENGINE->cloak("utility.engine.test@gmail.com", 40);
 
 /****
  * 
- * INPUT TEXT : utility.engine.test@gmail.com
+ * OUTPUT:
  * 
- * OUTPUT TEXT : xxxxxxxxxxxxne.test@gmail.com
+ * utility.engine.test@gmail.com => xxxxxxxxxxxxne.test@gmail.com 
  *  
 ****/        
 
@@ -83,9 +83,9 @@ $ENGINE->cloak("utility.engine.test@gmail.com", 40, '-0');
 
 /****
  * 
- * INPUT TEXT : utility.engine.test@gmail.com
+ * OUTPUT:
  * 
- * OUTPUT TEXT : utility.engine.texxxxxxxxxxxx
+ * utility.engine.test@gmail.com => utility.engine.texxxxxxxxxxxx 
  *  
 ****/        
 
@@ -104,9 +104,9 @@ $ENGINE->cloak("utility.engine.test@gmail.com", 40, 0, '*');
 
 /****
  * 
- * INPUT TEXT : utility.engine.test@gmail.com
+ * OUTPUT:
  * 
- * OUTPUT TEXT : ************ne.test@gmail.com 
+ * utility.engine.test@gmail.com => ************ne.test@gmail.com 
  *     
 ****/        
 
@@ -125,9 +125,9 @@ $ENGINE->cloak("utility.engine.test@gmail.com", 40, 2);
 
 /****
  * 
- * INPUT TEXT : utility.engine.test@gmail.com
+ * OUTPUT:
  * 
- * OUTPUT TEXT : xxne.test@gmail.com
+ * utility.engine.test@gmail.com => xxne.test@gmail.com
  * 
 ****/        
 
