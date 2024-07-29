@@ -21,7 +21,7 @@ $ENGINE = new Engine();
 ## Features & Usage Guide :
 
 ### 1. Text Masking or Cloaking
-To use this feature, simple call the `cloak()` method with the necessary parameters as shown below 
+To use this feature, simply call the `cloak()` method with the necessary parameters as shown below 
 
 **`cloak()` Method Paramaters** :
 
