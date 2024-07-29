@@ -23,7 +23,7 @@ $ENGINE = new Engine();
 ### 1. Text Masking or Cloaking
 To use this feature, simply call the `cloak()` method with the necessary parameters as shown below 
 
-**`cloak()` Method Paramaters** :
+:point_right: **`cloak()` Method Paramaters** :
 
 ```php
 
@@ -50,8 +50,7 @@ $ENGINE->cloak($data, $cloakPercent=60, $maskLen=0, $cipherSym='x');
 ?>
 
 ```
-
-**Left Hand Side (LHS) Masking/Cloaking** :
+:point_right: **Left Hand Side (LHS) Masking/Cloaking** :
 This is the default masking direction. The specified portion of the text is cloaked from the left hand side
 
 ```php
@@ -73,7 +72,7 @@ $ENGINE->cloak("utility.engine.test@gmail.com", 40);
 ```
 
 
-**Right Hand Side (RHS) Masking/Cloaking** :
+:point_right: **Right Hand Side (RHS) Masking/Cloaking** :
 To to change the masking direction, prepend negative sign `-` to the `$maskLen` parameter. This will force specified portion of the text to be cloaked from the right hand side
 
 ```php
@@ -94,7 +93,7 @@ $ENGINE->cloak("utility.engine.test@gmail.com", 40, '-0');
 
 ```
 
-**Change Masking/Cloaking Cipher** :
+:point_right: **Change Masking/Cloaking Cipher** :
 To to change the masking cipher, we simply pass the desired masking character to the `$cipherSys` parameter
 
 ```php
@@ -115,7 +114,7 @@ $ENGINE->cloak("utility.engine.test@gmail.com", 40, 0, '*');
 
 ```
 
-**Change Masking/Cloaking Cipher Length** :
+:point_right: **Change Masking/Cloaking Cipher Length** :
 To to change the masking cipher length, we simply pass the desired length to the `$maskLen` parameter
 
 ```php
@@ -163,7 +162,7 @@ $ENGINE->format_number($num, $dcp=0, $kfmt=true);
 
 ```
 
-**Formating Using Comma Separated Thousands** :
+:point_right: **Formating into Comma Separated Thousands** :
 ```php
 
 <?php
@@ -182,7 +181,7 @@ $ENGINE->format_number(295000000, 0, false);
 
 ```
 
-**Formating Using Comma Separated Thousands With Decimal Places** :
+:point_right: **Formating into Comma Separated Thousands With Decimal Places** :
 ```php
 
 <?php
@@ -201,7 +200,7 @@ $ENGINE->format_number(295000000, 4, false);
 
 ```
 
-**Formating Using K, M, B, T** :
+:point_right: **Formating Using K, M, B, T** :
 ```php
 
 <?php
