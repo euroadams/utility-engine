@@ -21,7 +21,15 @@ class Engine{
 	
 
 	
-	
+	/***
+	 Method for checking is we are in production or development environment
+	***/
+
+	public static function is_dev_env(){
+
+		return (isset($_SERVER[$K="HTTP_HOST"]) && preg_match('#\.test$#', $_SERVER[$K]));
+		
+	}
 	
 	
 	
@@ -788,7 +796,7 @@ class Engine{
 				}
 
 				$assocUrlArr[$Key] = $this->add_http_protocol($val);
-				
+
 			}
 			
 		}
@@ -1466,46 +1474,57 @@ class Engine{
 	
 	
 	/*** Method for hiding designated parts of a sensitive string like an email address ***/	
-	public function cloak($data, $cloakPercent=60, $maskLen=0, $cipherSym='x'){
-	
-		$maskedData="";	
-	
-		if(!$cipherSym) $cipherSym = 'x';	
-		$cpr_arr = explode(":", $cloakPercent);
-		$cloakPercent = isset($cpr_arr[0])? $cpr_arr[0] : 60;	
-		$cloakCondLen = isset($cpr_arr[1])? $cpr_arr[1] : '';
-	
-		if(!$cloakPercent) $cloakPercent = 60;	
-	
-		if($cloakPercent > 100) $cloakPercent = 100;	
-	
-		$rv = (mb_strpos($maskLen, '-') !== false);
-		$maskLen = (int)ltrim($maskLen, '-');
-		$percent = (((int)$cloakPercent) / 100);
-		$len = mb_strlen($data);
-	
-		if($cloakCondLen && $len < $cloakCondLen)
-			return $data;
-	
-		if($len > 1){	
+	public function cloak($str, $cloakPercent=60, $maskLen=0, $cipherSym='x'){	
 		
-			$cloak_len = round($percent * $len);
-			$part_cloaked = ($rv)? mb_substr($data, '-'.$cloak_len) : mb_substr($data, 0, $cloak_len);		
-			$part_uncloaked = ($rv)? mb_substr($data, 0, '-'.mb_strlen($part_cloaked)) : mb_substr($data, mb_strlen($part_cloaked));	
-			$mask = $this->generate_fixed_length_char($cloak_len, $cipherSym);
-			$maskedData = ($rv)? $part_uncloaked.$mask : $mask.$part_uncloaked;
+		$maskedStr = ""; 
+		$defCipher = 'x';
+		$defCloakPerc = 60; 
+		$maxCloakPerc = 100; 
+		$rvsDelim = '-'; 
+		$midDelim = '.';
+	
+		!$cipherSym? ($cipherSym = $defCipher) : '';	
+		$cloakPercentArr = explode(":", $cloakPercent);
+		$cloakPercent = isset($cloakPercentArr[0])? $cloakPercentArr[0] : $defCloakPerc;	
+		$cloakCondLen = isset($cloakPercentArr[1])? $cloakPercentArr[1] : '';
+	
+		$cloakPercent = (int)(!$cloakPercent? $defCloakPerc : (($cloakPercent > $maxCloakPerc)? $maxCloakPerc : $cloakPercent));		
+	
+		$rvsDir = (mb_strpos($maskLen, $rvsDelim) !== false);
+		$midDir = (mb_strpos($maskLen, $midDelim) !== false);
+		$maskLen = (int)ltrim(ltrim($maskLen, $midDelim), $rvsDelim);
+		
+		if($cloakCondLen && $strLen < $cloakCondLen)
+			return $str;
+				
+		$strLen = mb_strlen($str);
+	
+		if($strLen > 1){
+						
+			$cloakPercent = ($cloakPercent / 100);			
+			$cloakLen = round($cloakPercent * $strLen);
+			$cloakLen = $cloakLen + 1; //Due to zero index of mb_substr()
+			$mid2SideLen = (int)(($strLen - $cloakLen) / 2);			
+			$strCloaked = $rvsDir? mb_substr($str, '-'.$cloakLen) : ($midDir? mb_substr($str, $mid2SideLen, $cloakLen) : mb_substr($str, 0, $cloakLen));	
+			
+			if($midDir){
+
+				$lStrUncloaked = mb_substr($str, 0, $mid2SideLen);
+				$RStrUncloaked = mb_substr($str, '-'.$mid2SideLen);
+
+			}else{
+
+				$strCloakedLen = mb_strlen($strCloaked);	
+				$strUncloaked = $rvsDir? mb_substr($str, 0, '-'.$strCloakedLen) : mb_substr($str, $strCloakedLen);	
+
+			}
+			
+			$mask = $this->generate_fixed_length_char(($maskLen? $maskLen : $cloakLen), $cipherSym);
+			$maskedStr = $rvsDir? $strUncloaked.$mask : ($midDir? $lStrUncloaked.$mask.$RStrUncloaked : $mask.$strUncloaked);
 	
 		}
 	
-		if($data && $maskLen){
-	
-			$mask = $this->generate_fixed_length_char($maskLen, $cipherSym);
-			$maskedData = ($rv)? $part_uncloaked.$mask : $mask.$part_uncloaked;
-	
-		}
-	
-		return $maskedData;
-	
+		return $maskedStr;
 	}
 
 	
