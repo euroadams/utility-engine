@@ -93,6 +93,28 @@ $ENGINE->cloak("utility.engine.test@gmail.com", 40, '-0');
 
 ```
 
+:point_right: **Midpoint Masking/Cloaking** :
+To to change the masking direction to the middle, prepend dot sign `.` to the `$maskLen` parameter. This will force specified portion of the text to be cloaked from the midpoint and span evenly to the sides
+
+```php
+
+<?php
+    
+$ENGINE->cloak("utility.engine.test@gmail.com", 40, '.0');
+
+/****
+ * 
+ * OUTPUT:
+ * 
+ * utility.engine.test@gmail.com => utility.xxxxxxxxxxxxxmail.com
+ *  
+****/        
+
+?>
+
+```
+
+
 :point_right: **Change Masking/Cloaking Cipher** :
 To to change the masking cipher, we simply pass the desired masking character to the `$cipherSys` parameter
 

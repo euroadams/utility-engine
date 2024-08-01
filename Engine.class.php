@@ -1502,24 +1502,39 @@ class Engine{
 		if($strLen > 1){
 						
 			$cloakPercent = ($cloakPercent / 100);			
-			$cloakLen = round($cloakPercent * $strLen);
-			$cloakLen = $cloakLen + 1; //Due to zero index of mb_substr()
+			$cloakLen = round($cloakPercent * $strLen);	
+			$cloakLen = ($cloakLen < 1)? 1 : $cloakLen;				
 			$mid2SideLen = (int)(($strLen - $cloakLen) / 2);			
-			$strCloaked = $rvsDir? mb_substr($str, '-'.$cloakLen) : ($midDir? mb_substr($str, $mid2SideLen, $cloakLen) : mb_substr($str, 0, $cloakLen));	
+			$strCloaked = $rvsDir? mb_substr($str, '-'.$cloakLen) : ($midDir? mb_substr($str, $mid2SideLen - 1, $cloakLen) : mb_substr($str, 0, $cloakLen));				
+			$strCloakedLen = mb_strlen($strCloaked);
 			
 			if($midDir){
 
 				$lStrUncloaked = mb_substr($str, 0, $mid2SideLen);
 				$RStrUncloaked = mb_substr($str, '-'.$mid2SideLen);
+				$strUncloakedLen = mb_strlen($lStrUncloaked.$RStrUncloaked);
 
 			}else{
-
-				$strCloakedLen = mb_strlen($strCloaked);	
+	
 				$strUncloaked = $rvsDir? mb_substr($str, 0, '-'.$strCloakedLen) : mb_substr($str, $strCloakedLen);	
+				$strUncloakedLen = mb_strlen($strUncloaked);
 
 			}
 			
-			$mask = $this->generate_fixed_length_char(($maskLen? $maskLen : $cloakLen), $cipherSym);
+			if($maskLen)
+				$cipherLen = $maskLen;
+
+			else{
+
+				$combinedCloakLen = ($strCloakedLen + $strUncloakedLen);
+				$lenDeviation = ($strLen - $combinedCloakLen);
+
+				$cipherLen = ($cloakLen + $lenDeviation);				
+
+			}
+			
+			
+			$mask = $this->generate_fixed_length_char($cipherLen, $cipherSym);
 			$maskedStr = $rvsDir? $strUncloaked.$mask : ($midDir? $lStrUncloaked.$mask.$RStrUncloaked : $mask.$strUncloaked);
 	
 		}
