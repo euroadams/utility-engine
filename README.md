@@ -51,6 +51,7 @@ $ENGINE->cloak($data, $cloakPercent=60, $maskLen=0, $cipherSym='x');
 
 ```
 :point_right: **Left Hand Side (LHS) Masking/Cloaking** :
+
 This is the default masking direction. The specified portion of the text is cloaked from the left hand side
 
 ```php
@@ -73,6 +74,7 @@ $ENGINE->cloak("utility.engine.test@gmail.com", 40);
 
 
 :point_right: **Right Hand Side (RHS) Masking/Cloaking** :
+
 To change the masking direction, prepend negative sign `-` to the `$maskLen` parameter. This will force specified portion of the text to be cloaked from the right hand side
 
 ```php
@@ -94,6 +96,7 @@ $ENGINE->cloak("utility.engine.test@gmail.com", 40, '-0');
 ```
 
 :point_right: **Midpoint Masking/Cloaking** :
+
 To change the masking direction to the middle, prepend dot sign `.` to the `$maskLen` parameter. This will force specified portion of the text to be cloaked from the midpoint and span evenly to the sides
 
 ```php
@@ -115,6 +118,7 @@ $ENGINE->cloak("utility.engine.test@gmail.com", 40, '.0');
 ```
 
 :point_right: **String Index Masking/Cloaking** :
+
 To cloak any portion of the text that is of interest to you, simply pass a comma-separated `start` and `stop` index as parameter to the `$cloakPercent` and prepend a pipe sign `|` to it as shown below. 
 This will cloak the portion of the text specified by the `start` and `stop` index accordingly. 
 
@@ -158,6 +162,7 @@ $ENGINE->cloak("utility.engine.test@gmail.com", '|-21,6');
 
 
 :point_right: **Change Masking/Cloaking Cipher** :
+
 To change the masking cipher, we simply pass the desired masking character to the `$cipher` parameter
 
 ```php
@@ -179,6 +184,7 @@ $ENGINE->cloak("utility.engine.test@gmail.com", 40, 0, '*');
 ```
 
 :point_right: **Change Masking/Cloaking Cipher Length** :
+
 To change the masking cipher length, we simply pass the desired length to the `$maskLen` parameter
 
 ```php
@@ -227,6 +233,7 @@ $ENGINE->format_number($num, $dcp=0, $kfmt=true);
 ```
 
 :point_right: **Comma Separated Format** :
+
 ```php
 
 <?php
@@ -246,6 +253,7 @@ $ENGINE->format_number(295000000, 0, false);
 ```
 
 :point_right: **Comma Separated Format With Decimal Places** :
+
 ```php
 
 <?php
@@ -266,6 +274,7 @@ $ENGINE->format_number(295000000, 4, false);
 ```
 
 :point_right: **K, M, B, T Format** :
+
 ```php
 
 <?php
