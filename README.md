@@ -114,9 +114,51 @@ $ENGINE->cloak("utility.engine.test@gmail.com", 40, '.0');
 
 ```
 
+:point_right: **String Index Masking/Cloaking** :
+To cloak any portion of the text that is of interest to you, simply pass a comma-separated `start` and `stop` index as parameter to the `$cloakPercent` and prepend a pipe sign `|` to it as shown below. 
+This will cloak the portion of the text specified by the `start` and `stop` index accordingly. 
+
+To reverse the count direction to the end of the text, simply prepend negative sign `-` to the `start` index as seen illustarted below.
+
+> [!NOTE]
+> The `start` and `stop` index follows standard `PHP` string indexing style.
+`0` marks the first character for positive indexing and `-1` for negative indexing
+
+```php
+
+<?php
+
+//Cloak Only the 'engine' part in the text
+$ENGINE->cloak("utility.engine.test@gmail.com", '|8,6');
+
+/****
+ * 
+ * OUTPUT:
+ * 
+ * utility.engine.test@gmail.com => utility.xxxxxx.test@gmail.com
+ *  
+****/  
+
+
+//Cloak Only the 'engine' part in the text while counting from the end
+$ENGINE->cloak("utility.engine.test@gmail.com", '|-21,6');
+
+/****
+ * 
+ * OUTPUT:
+ * 
+ * utility.engine.test@gmail.com => utility.xxxxxx.test@gmail.com
+ *  
+****/
+
+?>
+
+```
+
+
 
 :point_right: **Change Masking/Cloaking Cipher** :
-To to change the masking cipher, we simply pass the desired masking character to the `$cipherSys` parameter
+To to change the masking cipher, we simply pass the desired masking character to the `$cipher` parameter
 
 ```php
 

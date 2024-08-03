@@ -1474,7 +1474,7 @@ class Engine{
 	
 	
 	/*** Method for hiding designated parts of a sensitive string like an email address ***/	
-	public function cloak($str, $cloakPercent=60, $maskLen=0, $cipherSym='x'){	
+	public function cloak($str, $cloakPercent=60, $maskLen=0, $cipher='x'){	
 		
 		$maskedStr = ""; 
 		$defCipher = 'x';
@@ -1482,24 +1482,41 @@ class Engine{
 		$maxCloakPerc = 100; 
 		$rvsDelim = '-'; 
 		$midDelim = '.';
+		$cloakLenCondDelim = ':';
+		$cloakPosDelim = '|';
+		$cloakStartEndDelim = ',';
+		!$cipher? ($cipher = $defCipher) : '';	
+
+		$cloakPercentArg = $cloakPercent;
+		$cloakPercentArr = explode($cloakLenCondDelim, $cloakPercent);
+		$cloakPercent = isset($cloakPercentArr[0])? (int)$cloakPercentArr[0] : $defCloakPerc;	
+		$cloakLenCond = isset($cloakPercentArr[1])? (int)strstr($cloakPercentArr[1], $cloakPosDelim, true) : '';
+		
+		$cloakPosArr = explode($cloakPosDelim, $cloakPercentArg);
+		$cloakPos = isset($cloakPosArr[1])? $cloakPosArr[1] : '';
+		$cloakStartEndArr = explode($cloakStartEndDelim, $cloakPos);	
+		$cloakStartPos = isset($cloakStartEndArr[0])? (int)$cloakStartEndArr[0] : false;	
+		$cloakPosLen = isset($cloakStartEndArr[1])? (int)$cloakStartEndArr[1] : false;
 	
-		!$cipherSym? ($cipherSym = $defCipher) : '';	
-		$cloakPercentArr = explode(":", $cloakPercent);
-		$cloakPercent = isset($cloakPercentArr[0])? $cloakPercentArr[0] : $defCloakPerc;	
-		$cloakCondLen = isset($cloakPercentArr[1])? $cloakPercentArr[1] : '';
-	
-		$cloakPercent = (int)(!$cloakPercent? $defCloakPerc : (($cloakPercent > $maxCloakPerc)? $maxCloakPerc : $cloakPercent));		
+		$cloakPercent = !$cloakPercent? $defCloakPerc : (($cloakPercent > $maxCloakPerc)? $maxCloakPerc : $cloakPercent);		
 	
 		$rvsDir = (mb_strpos($maskLen, $rvsDelim) !== false);
 		$midDir = (mb_strpos($maskLen, $midDelim) !== false);
 		$maskLen = (int)ltrim(ltrim($maskLen, $midDelim), $rvsDelim);
-		
-		if($cloakCondLen && $strLen < $cloakCondLen)
+
+		if($cloakLenCond && ($strLen < $cloakLenCond))
 			return $str;
 				
 		$strLen = mb_strlen($str);
-	
-		if($strLen > 1){
+		
+		if($cloakStartPos){
+			
+			$txt2Replace = mb_substr($str, $cloakStartPos, $cloakPosLen);
+			$cipherLen = $maskLen? $maskLen : mb_strlen($txt2Replace);
+			$replacementCipher = str_repeat($cipher, $cipherLen);			
+			$maskedStr = substr_replace($str, $replacementCipher, $cloakStartPos, $cloakPosLen);
+			
+		}elseif($strLen > 1){
 						
 			$cloakPercent = ($cloakPercent / 100);			
 			$cloakLen = round($cloakPercent * $strLen);	
@@ -1534,7 +1551,7 @@ class Engine{
 			}
 			
 			
-			$mask = $this->generate_fixed_length_char($cipherLen, $cipherSym);
+			$mask = $this->generate_fixed_length_char($cipherLen, $cipher);
 			$maskedStr = $rvsDir? $strUncloaked.$mask : ($midDir? $lStrUncloaked.$mask.$RStrUncloaked : $mask.$strUncloaked);
 	
 		}
