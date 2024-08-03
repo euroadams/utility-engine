@@ -73,7 +73,7 @@ $ENGINE->cloak("utility.engine.test@gmail.com", 40);
 
 
 :point_right: **Right Hand Side (RHS) Masking/Cloaking** :
-To to change the masking direction, prepend negative sign `-` to the `$maskLen` parameter. This will force specified portion of the text to be cloaked from the right hand side
+To change the masking direction, prepend negative sign `-` to the `$maskLen` parameter. This will force specified portion of the text to be cloaked from the right hand side
 
 ```php
 
@@ -94,7 +94,7 @@ $ENGINE->cloak("utility.engine.test@gmail.com", 40, '-0');
 ```
 
 :point_right: **Midpoint Masking/Cloaking** :
-To to change the masking direction to the middle, prepend dot sign `.` to the `$maskLen` parameter. This will force specified portion of the text to be cloaked from the midpoint and span evenly to the sides
+To change the masking direction to the middle, prepend dot sign `.` to the `$maskLen` parameter. This will force specified portion of the text to be cloaked from the midpoint and span evenly to the sides
 
 ```php
 
@@ -158,7 +158,7 @@ $ENGINE->cloak("utility.engine.test@gmail.com", '|-21,6');
 
 
 :point_right: **Change Masking/Cloaking Cipher** :
-To to change the masking cipher, we simply pass the desired masking character to the `$cipher` parameter
+To change the masking cipher, we simply pass the desired masking character to the `$cipher` parameter
 
 ```php
 
@@ -179,7 +179,7 @@ $ENGINE->cloak("utility.engine.test@gmail.com", 40, 0, '*');
 ```
 
 :point_right: **Change Masking/Cloaking Cipher Length** :
-To to change the masking cipher length, we simply pass the desired length to the `$maskLen` parameter
+To change the masking cipher length, we simply pass the desired length to the `$maskLen` parameter
 
 ```php
 
